@@ -15,6 +15,7 @@ SELECT emp.first_name as "First", emp.last_name as "Last", emp.hire_date as "Hir
 	WHERE emp.hire_date between '1/1/1986' and '12/31/1986';
 
 -- List the manager of each department with the following information: department number, department name, the manager's employee number, last name, first name.
+--Observation: most departments have more than one manager
 SELECT dept_mgr.dept_no AS "Dept Mgr", dept.dept_name AS "Dept Name", dept_mgr.emp_no AS "Emp #", emp.first_name AS "First", emp.last_name AS "Last"
 	FROM dept_manager 
 	AS dept_mgr
@@ -72,4 +73,15 @@ SELECT DISTINCT emp.last_name AS "Last", COUNT(emp.last_name) AS "Count"
 	AS emp
 	GROUP BY emp.last_name
 	ORDER BY emp.last_name desc;
+	
+--Epilogue
+SELECT emp.emp_no AS "Emp #", emp.last_name AS "Last", emp.first_name AS "First", dept.dept_name AS "Dept Name"
+	FROM "Departments"
+	AS dept
+	JOIN "dept_emp"
+	ON dept_emp.dept_no = dept.dept_no
+	JOIN "employees"
+	AS emp
+	ON emp.emp_no = dept_emp.emp_no
+	WHERE emp.emp_no = '499942';
 	
